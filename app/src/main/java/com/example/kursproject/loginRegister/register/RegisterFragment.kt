@@ -35,7 +35,7 @@ class RegisterFragment : Fragment() {
             if(email.isNotEmpty() && password.isNotEmpty() && password == passwordRepeat)
             {
                 loginRegisterViewModel.register(email,password)
-                if(loginRegisterViewModel.ge) view?.findNavController()?.navigate(R.id.action_registerFragment_to_loginFragment)
+                view?.findNavController()?.navigate(R.id.action_registerFragment_to_loginFragment)
             }
             else {
                 Toast.makeText(requireContext(), "Email Address and Password Must Be Entered", Toast.LENGTH_SHORT).show();
