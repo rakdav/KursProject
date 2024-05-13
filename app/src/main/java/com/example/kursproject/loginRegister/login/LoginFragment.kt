@@ -1,4 +1,4 @@
-package com.example.kursproject.ui.LoginRegister
+package com.example.kursproject.loginRegister.login
 
 import android.content.Intent
 import android.os.Bundle
@@ -21,7 +21,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         auth = Firebase.auth
         binding= FragmentLoginBinding.inflate(layoutInflater, container, false)
         binding.register.setOnClickListener{
@@ -33,8 +33,8 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                     task->
                 if (task.isSuccessful) {
                     val user = auth.currentUser
-                    Toast.makeText(requireContext(),"User"+user,Toast.LENGTH_LONG).show()
-                    var intent=Intent(requireActivity(),MainActivity::class.java)
+                    Toast.makeText(requireContext(), "User$user",Toast.LENGTH_LONG).show()
+                    val intent=Intent(requireActivity(),MainActivity::class.java)
                     startActivity(intent)
                 } else {
 

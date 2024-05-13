@@ -17,7 +17,7 @@
             android:exported="false"
             android:label="@string/title_activity_main"/>
         <activity
-            android:name=".ui.LoginRegister.LoginRegisterActivity"
+            android:name=".loginRegister.LoginRegisterActivity"
             android:exported="true"
             android:label="LoginRegisterActivity">
             <intent-filter>
