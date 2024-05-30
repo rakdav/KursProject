@@ -1,6 +1,5 @@
 package com.example.kursproject.model
 
-import android.annotation.SuppressLint
 import android.app.Application
 import android.os.Build
 import android.widget.Toast
@@ -8,13 +7,16 @@ import androidx.annotation.RequiresApi
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 
 
 class AuthAppRepository(private var application: Application) {
+    private val mDatabase: FirebaseDatabase? = FirebaseDatabase.getInstance();
+    private val mDbRef: DatabaseReference? = mDatabase!!.getReference("users");
     private var firebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()
     private var userLiveData: MutableLiveData<FirebaseUser> = MutableLiveData()
     private var loggedOutLiveData: MutableLiveData<Boolean> = MutableLiveData()
-    private var create=false
     init
     {
         if (firebaseAuth.currentUser != null) {
@@ -56,7 +58,12 @@ class AuthAppRepository(private var application: Application) {
                         "Registration access",
                         Toast.LENGTH_SHORT
                     ).show()
-                    create=true
+                    val userId = mDbRef!!.push().key
+                    val user: User = User(
+                        "${firebaseAuth.currentUser!!.email}", "", "",
+                        ""
+                    )
+                    mDbRef.child(userId!!).setValue(user);
                 }
                 else
                 {
@@ -80,10 +87,6 @@ class AuthAppRepository(private var application: Application) {
 
     fun getLoggedOutLiveData(): MutableLiveData<Boolean> {
         return loggedOutLiveData
-    }
-    fun getCreate():Boolean
-    {
-        return create
     }
 
 }
